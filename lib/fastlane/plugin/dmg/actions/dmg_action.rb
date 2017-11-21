@@ -5,39 +5,61 @@ module Fastlane
         UI.message("The dmg plugin is working!")
       end
 
+      #####################################################
+      # @!group Documentation
+      #####################################################
+
       def self.description
-        "Easily create and sign DMG for your Mac app"
+        "Create DMG for your Mac app"
       end
 
       def self.authors
         ["Alexey Dvoryanskiy"]
       end
 
+      def self.category
+        :misc
+      end
+
+      def self.output
+        []
+      end
+
       def self.return_value
-        # If your method provides a return value, you can describe here what it does
+        "The path of the output dmg file"
       end
 
       def self.details
-        # Optional:
-        "Detailed descriptions would be provided later"
+        "Use this action to create dmg for Mac app"
+      end
+
+      def self.example_code
+        [
+          'dmg',
+          'dmg(
+            path: "MyApp.app",
+            output_path: "Latest.dmg"
+          )'
+        ]
       end
 
       def self.available_options
         [
-          # FastlaneCore::ConfigItem.new(key: :your_option,
-          #                         env_name: "DMG_YOUR_OPTION",
-          #                      description: "A description of your option",
-          #                         optional: false,
-          #                             type: String)
+          FastlaneCore::ConfigItem.new(key: :path,
+                                       env_name: "FL_DMG_PATH",
+                                       description: "Path to the directory to be archived to dmg",
+                                       verify_block: proc do |value|
+                                         UI.user_error!("Couldn't find folder at path '#{File.expand_path(value)}'") unless File.exist?(value)
+                                       end),
+          FastlaneCore::ConfigItem.new(key: :output_path,
+                                       env_name: "FL_DMG_OUTPUT_PATH",
+                                       description: "The name of the resulting dmg file",
+                                       optional: true)
         ]
       end
 
       def self.is_supported?(platform)
-        # Adjust this if your plugin only works for a particular platform (iOS vs. Android, for example)
-        # See: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
-        #
-        # [:ios, :mac, :android].include?(platform)
-        true
+        [:mac].include?(platform)
       end
     end
   end
