@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'advoryanskiy@gmail.com'
 
   spec.summary       = 'Easily create and sign DMG for your Mac app'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-dmg"
+  spec.homepage      = "https://github.com/advoryanskiy/fastlane-plugin-dmg"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)

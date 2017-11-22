@@ -1,3 +1,8 @@
 lane :test do
-  dmg
+  dmg(path: "/some/myapp/",             # required
+      output_path: "/some/myapp.dmg",   # optional, by default will be at the same location as 'myapp' folder
+      volume_name: "myapp",             # optional, by default will be the same as input folder name
+      filesystem: "hfs+",               # optional, default is 'hfs+'
+      format: "udzo",                   # optional, default is 'udzo'
+      size: 10)                         # in megabytes, optional, by default will be calculated as input folder size + 10%
 end
