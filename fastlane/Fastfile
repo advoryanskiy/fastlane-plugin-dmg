@@ -1,8 +1,8 @@
 lane :test do
-  dmg(path: "/some/myapp/",             # required
-      output_path: "/some/myapp.dmg",   # optional, by default will be at the same location as 'myapp' folder
-      volume_name: "myapp",             # optional, by default will be the same as input folder name
-      filesystem: "hfs+",               # optional, default is 'hfs+'
-      format: "udzo",                   # optional, default is 'udzo'
-      size: 10)                         # in megabytes, optional, by default will be calculated as input folder size + 10%
+  dmg(path: "spec/fixtures/app/app",            # required
+      output_path: "spec/fixtures/app/app.dmg", # optional, by default will be at the same location as input folder
+      volume_name: "myapp",                     # optional, by default will be the same as input folder name
+      filesystem: "HFS+",                       # optional, default is 'HFS+'
+      format: "UDZO",                           # optional, default is 'UDZO'
+      size: 20)                                 # in megabytes, optional, by default will be calculated as input folder size + 10%
 end
