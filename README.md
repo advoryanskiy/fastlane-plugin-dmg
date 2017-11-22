@@ -1,6 +1,7 @@
 # dmg plugin
 
 [![fastlane Plugin Badge](https://rawcdn.githack.com/fastlane/fastlane/master/fastlane/assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-dmg)
+[![Build Status](https://travis-ci.org/advoryanskiy/fastlane-plugin-dmg.svg?branch=master)](https://travis-ci.org/advoryanskiy/fastlane-plugin-dmg)
 
 ## Getting Started
 
