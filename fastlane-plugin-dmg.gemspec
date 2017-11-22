@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.author        = 'Alexey Dvoryanskiy'
   spec.email         = 'advoryanskiy@gmail.com'
 
-  spec.summary       = 'Easily create and sign DMG for your Mac app'
+  spec.summary       = 'Easily create dmg for your Mac app'
   spec.homepage      = "https://github.com/advoryanskiy/fastlane-plugin-dmg"
   spec.license       = "MIT"
 
