@@ -26,17 +26,13 @@ module Fastlane
         Dir.mktmpdir('fldmg') do |dir|
           FileUtils.cp_r(input_path, dir)
 
-          cmd = "hdiutil create \
+          Actions.sh "hdiutil create \
             -fs #{params[:filesystem]} \
             -volname #{params[:volume_name]} \
             -srcfolder #{File.expand_path(input_path).shellescape} \
             -ov \
             -format #{params[:format]} \
             -size #{params[:size]}m #{absolute_output_path.shellescape}"
-
-          puts "Running command: \n#{cmd}\n"
-
-          Actions.sh cmd
         end
 
         UI.success "Successfuly generated dmg image at path #{absolute_output_path}"
