@@ -26,13 +26,7 @@ module Fastlane
         Dir.mktmpdir('fldmg') do |dir|
           FileUtils.cp_r(input_path, dir)
 
-          Actions.sh "hdiutil create \
-            -fs #{params[:filesystem]} \
-            -volname #{params[:volume_name]} \
-            -srcfolder #{File.expand_path(input_path).shellescape} \
-            -ov \
-            -format #{params[:format]} \
-            -size #{params[:size]}m #{absolute_output_path.shellescape}"
+          Actions.sh "hdiutil create -fs #{params[:filesystem]} -volname #{params[:volume_name]} -srcfolder #{File.expand_path(input_path).shellescape} -ov -format #{params[:format]} -size #{params[:size]}m #{absolute_output_path.shellescape}"
         end
 
         UI.success "Successfuly generated dmg image at path #{absolute_output_path}"
@@ -109,6 +103,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :size,
                                        env_name: "FL_DMG_SIZE",
                                        description: "Size of the resulting dmg file in megabytes",
+                                       type: Integer,
                                        optional: true)
         ]
       end
