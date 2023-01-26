@@ -1,10 +1,15 @@
+require 'fastlane/action'
+require 'fastlane/boolean'
+require 'fastlane_core/configuration/config_item'
 require 'tmpdir'
+
+require_relative '../helper/dmg_helper'
 
 module Fastlane
   module Actions
     class DmgAction < Action
       def self.run(params)
-        UI.message "Creating dmg from #{params[:path]}..."
+        UI.message("Creating dmg from #{params[:path]}...")
 
         input_path = params[:path]
 
@@ -23,13 +28,23 @@ module Fastlane
         absolute_output_dir = File.expand_path("..", absolute_output_path)
         FileUtils.mkdir_p(absolute_output_dir)
 
+        # Append "/." to path if the path doesn't end with it
+        unless input_path.end_with?("/.")
+          input_path += "/."
+        end
+
         Dir.mktmpdir('fldmg') do |dir|
           FileUtils.cp_r(input_path, dir)
 
-          Actions.sh "hdiutil create -fs #{params[:filesystem]} -volname #{params[:volume_name].shellescape} -srcfolder #{File.expand_path(input_path).shellescape} -ov -format #{params[:format]} -size #{params[:size]}m #{absolute_output_path.shellescape}"
+          # Create /Applications symlink if required
+          if params[:create_applications_symlink]
+            File.symlink("/Applications", "#{dir}/Applications")
+          end
+
+          Actions.sh("hdiutil create -fs #{params[:filesystem]} -volname #{params[:volume_name].shellescape} -srcfolder #{File.expand_path(dir).shellescape} -ov -format #{params[:format]} -size #{params[:size]}m #{absolute_output_path.shellescape}")
         end
 
-        UI.success "Successfuly generated dmg image at path #{absolute_output_path}"
+        UI.success("Successfuly generated dmg image at path #{absolute_output_path}")
         return absolute_output_path
       end
 
@@ -69,6 +84,7 @@ module Fastlane
             output_path: "Latest.dmg",
             volume_name: "MyApp",
             filesystem: "HFS+",
+            create_applications_symlink: true,
             size: 25
           )'
         ]
@@ -99,6 +115,12 @@ module Fastlane
                                        env_name: "FL_DMG_FORMAT",
                                        description: "The format of the resulting image",
                                        default_value: "UDZO",
+                                       optional: true),
+          FastlaneCore::ConfigItem.new(key: :create_applications_symlink,
+                                       env_name: "FL_ADD_APPS_SYMLINK",
+                                       description: "Flag for creating /Applications symlink",
+                                       default_value: true,
+                                       type: Fastlane::Boolean,
                                        optional: true),
           FastlaneCore::ConfigItem.new(key: :size,
                                        env_name: "FL_DMG_SIZE",

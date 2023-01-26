@@ -20,12 +20,13 @@ Easily create DMG for your Mac app
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
 
 ```ruby
-  dmg(path: "/some/myapp/",             # required
-      output_path: "/some/myapp.dmg",   # optional, by default will be at the same location as 'myapp' folder
-      volume_name: "myapp",             # optional, by default will be the same as input folder name
-      filesystem: "hfs+",               # optional, default is 'hfs+'
-      format: "udzo",                   # optional, default is 'udzo'
-      size: 10)                         # in megabytes, optional, by default will be calculated as input folder size + 10%
+  dmg(path: "/some/myapp/",              # required
+      output_path: "/some/myapp.dmg",    # optional, by default will be at the same location as 'myapp' folder
+      volume_name: "myapp",              # optional, by default will be the same as input folder name
+      filesystem: "hfs+",                # optional, default is 'hfs+'
+      format: "udzo",                    # optional, default is 'udzo'
+      create_applications_symlink: true, # optional, default is true
+      size: 10)                          # in megabytes, optional, by default will be calculated as input folder size + 10%
 ```
 
 ## Run tests for this plugin
