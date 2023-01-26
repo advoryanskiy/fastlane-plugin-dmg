@@ -4,5 +4,6 @@ lane :test do
       volume_name: "myapp",                     # optional, by default will be the same as input folder name
       filesystem: "HFS+",                       # optional, default is 'HFS+'
       format: "UDZO",                           # optional, default is 'UDZO'
+      create_applications_symlink: true,        # optional, default is true
       size: 20)                                 # in megabytes, optional, by default will be calculated as input folder size + 10%
 end
