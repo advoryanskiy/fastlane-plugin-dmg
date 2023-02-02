@@ -51,7 +51,7 @@ module Fastlane
           Actions.sh("hdiutil create -fs #{params[:filesystem]} -volname #{params[:volume_name].shellescape} -srcfolder #{File.expand_path(dir).shellescape} -ov -format #{params[:format]} -size #{params[:size]}m #{absolute_output_path.shellescape}")
         end
 
-        UI.success("Successfuly generated dmg image at path #{absolute_output_path}")
+        UI.success("Successfully generated dmg image at path #{absolute_output_path}")
         return absolute_output_path
       end
 
