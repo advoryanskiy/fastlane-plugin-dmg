@@ -34,7 +34,14 @@ module Fastlane
         end
 
         Dir.mktmpdir('fldmg') do |dir|
+          # Copy to temp folder
           FileUtils.cp_r(input_path, dir)
+
+          # Remove .DS_Store if copied
+          ds_store_filepath = "#{dir}/.DS_Store"
+          if File.exist?(ds_store_filepath)
+            File.delete(ds_store_filepath)
+          end
 
           # Create /Applications symlink if required
           if params[:create_applications_symlink]
