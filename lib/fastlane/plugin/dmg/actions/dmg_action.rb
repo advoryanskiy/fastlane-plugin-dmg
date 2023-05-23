@@ -29,7 +29,7 @@ module Fastlane
         FileUtils.mkdir_p(absolute_output_dir)
 
         # Append "/." to path if the path doesn't end with it, but do this only if folder provided, no .app
-        unless File.extname(input_path) == ".app" or input_path.end_with?("/.")
+        unless File.extname(input_path) == ".app" || input_path.end_with?("/.")
           UI.message("not .app provided, adding /.")
           input_path += "/."
         end
